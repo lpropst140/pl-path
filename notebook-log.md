@@ -21,4 +21,28 @@ Assumptions: sequences with higher similarity share a closer evolutionary relati
 Limitations:early mistakes in pairwise alignment will follow through to the progressive alignment, gap pentalies are predefined and may not be evolutionarily accurate, ClustalW is less efficient than more modern MSA tools like MUSCLE for large data sets
 Source: https://doi.org/10.1093/nar/22.22.4673
 
+Parsimony-based Tree using R:
+
+install.packages("adegenet", dep=TRUE)
+install.packages("phangorn", dep=TRUE)
+
+library(ape)
+library(adegenet)
+library(phangorn)
+
+> setwd("~/Desktop/pl-path/Finalproject")
+> dna <- fasta2DNAbin(file="Pigs_phylo_raw_dataaligned.fasta")
+ D <- dist.dna(dna, model="TN93")
+> tre <- nj(D)
+> tre <- ladderize(tre)
+> plot(tre, cex=.6)
+> title("A simple NJ tree")
+
+Tree saved as "Simple NJ tree R.png"
+
+Chosen algorithm: R distance-based methods
+Description:NJ (neighbor joining) algorithm is a distance based method used to construct phylogenetic trees. NJ trees are based on a pairwise genetic distance matrix and is then processed using a hierachial clustering algorithm to infer phylogenetic relationships. 
+Strengths: Fast, easy to use, integrates well with other R packages
+Weaknesses: No built in model comparison, may be inaccurate depending on distance and clustering algorithm 
+Assumptions: Assumes that the evolutionary distances can be accurately summarized in a pairwise matrix
 
