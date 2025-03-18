@@ -46,3 +46,48 @@ Strengths: Fast, easy to use, integrates well with other R packages
 Weaknesses: No built in model comparison, may be inaccurate depending on distance and clustering algorithm 
 Assumptions: Assumes that the evolutionary distances can be accurately summarized in a pairwise matrix
 
+RAxML: (randomized axelerated Maxiumum Likelihood)
+
+description: phylogenetic inference software that uses maxiumum likelihood methods to estimate evolutionary trees. 
+
+Strengths: Best scoring tree for large data sets as well as a fast maximum likelihood algorithm
+
+Weaknesses: Has shown to have a higher variance compared to other models such as IQ tree and does not support Bayesian inference or distance based methods. 
+
+Assumptions: Mutation rate and base changes are constant across evolutionary space and time, sites evolve independently of one another, and all sites evolve at the same time. 
+
+
+    Check for the corrected file:
+    ./raxml-ng --check --msa pigs_phylo_raw_dataaligned.fasta --model GTR+G 
+    Execution log saved to: /Users/lindsaypropst/Software/raxml-ng_v1.2.2_macos (1)/pigs_phylo_raw_dataaligned.fasta.raxml.log
+    
+    Rerun with fixed file:
+    ./raxml-ng --check --msa pigs_phylo_raw_dataaligned.fasta.raxml.reduced.phy --model GTR+G
+    
+    Infer the tree:
+       ./raxml-ng --msa pigs_phylo_raw_dataaligned.fasta.raxml.reduced.phy --model GTR+G --prefix pigs --threads 2 --seed 2  
+       
+        Best ML tree with collapsed near-zero branches saved to: /Users/lindsaypropst/Software/raxml-ng_v1.2.2_macos (1)/pigs.raxml.bestTreeCollapsed
+                Best ML tree saved to: /Users/lindsaypropst/Software/raxml-ng_v1.2.2_macos (1)/pigs.raxml.bestTree
+                All ML trees saved to: /Users/lindsaypropst/Software/raxml-ng_v1.2.2_macos (1)/pigs.raxml.mlTrees
+                Optimized model saved to: /Users/lindsaypropst/Software/raxml-ng_v1.2.2_macos (1)/pigs.raxml.bestModel
+
+            pigs.raxml.bestTree
+    
+    in R:
+        library(ape)
+        > tre <-read.tree(text="(EF590178.1:0.000001,(((EF590165.1:0.002004,EF590169.1:0.000994):0.000001,EF590172.1:0.000001):0.000001,(((EF590161.1:0.000992,EF590146.1:0.004042):0.000001,EF590190.1:0.000001):0.000001,((((AF276925.1:0.000984,(AB015085.1:0.005062,(AB015094.1:0.013560,AB015087.1:0.000848):0.002132):0.002014):0.000001,AB015092.1:0.000001):0.000001,AF276932.1:0.000985):0.000986,((EF590149.1:0.000001,EF590141.1:0.000995):0.000994,EF590176.1:0.000001):0.000001):0.001977):0.000985):0.000985,AB015091.2:0.000987);")
+            > tre2= root(tree, outgroup="AB015094.1")
+            > plot(tre)
+                Output:
+                > 2025-03-13 14:11:16.652 R[50321:2286929] +[IMKClient subclass]: chose IMKClient_Modern
+                2025-03-13 14:11:16.652 R[50321:2286929] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+                
+            Other commands for plotting tree:
+                edgelabels()
+                ?root
+                nodelabels()
+                tre2= root(tree, outgroup="find from paper"
+                nameing:  pdf("mytree.pdf")
+                > dev.off()
+
