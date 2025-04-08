@@ -91,3 +91,174 @@ Assumptions: Mutation rate and base changes are constant across evolutionary spa
                 nameing:  pdf("mytree.pdf")
                 > dev.off()
 
+MrBayes
+
+Description: Program for Bayesian inference of a wide variety of phylogenic and evolutionary models using the MCMC (markov chain Monte Carlo). Basian inference estimates the probability under prior evidence 
+
+Strengths: Accomindates data heterogeneity, increases chance of escaping local optima, speeds up convergence especially for large date
+
+Weaknesses: Choice of priots can change outcomes significantly => requires in-depth background of the program, bootstrap support values for ML or parsimony tend to be lower than posterior probabilities for Bayesian approaches 
+
+assumptions: Assumes equal rates of evolution across sites
+
+Users choices: set the model structure, link/unlink topologies, branch length, substitution rates, proportion of invariable sites, Gamma distributino 
+
+downloaded using the following command: 
+     brew tap brewsci/bio
+     brew install mrbayes open-mpi
+     
+     convert data to .nex file to run in MrBayes - aligned fasta file in R named
+
+    begin mrbayes;
+ set autoclose=yes;
+ prset brlenspr=unconstrained:exp(10.0);
+ prset shapepr=exp(1.0);
+ prset tratiopr=beta(1.0,1.0);
+ prset statefreqpr=dirichlet(1.0,1.0,1.0,1.0);
+ lset nst=2 rates=gamma ngammacat=4;
+ mcmcp ngen=1000000 samplefreq=10 printfreq=100 nruns=1 nchains=3 savebrlens=yes;
+ outgroup AB015094.1;
+ mcmc;
+ sumt;
+end;
+
+    for final project, ngen=1,000,000
+    
+running Mrbayes in terminal:
+    open finalproject in terminal
+    
+    which mb
+    mb Pigs_phylo_raw_dataaligned_copy_2.nexus 
+
+
+
+      Clade credibility values:
+
+      /--------------------------------------------------------------- AB015094.1 (29)
+      |                                                                               
+      |--------------------------------------------------------------- AB015087.1 (28)
+      |                                                                               
+      |                          /------------------------------------ EF590149.1 (1)
+      |                          |                                                    
+      |                          |------------------------------------ EF590188.1 (2)
+      |                          |                                                    
+      |                          |------------------------------------ EF590171.1 (3)
+      |                          |                                                    
+      |                          |------------------------------------ EF590186.1 (4)
+      |                          |                                                    
+      |                          |------------------------------------ EF590153.1 (5)
+      |                          |                                                    
+      |                          |------------------------------------ EF590141.1 (6)
+      |                          |                                                    
+      |                          |------------------------------------ EF590176.1 (7)
+      |                          |                                                    
+      |                          |------------------------------------ EF590195.1 (8)
+      |                          |                                                    
+      |                          |------------------------------------ EF590193.1 (9)
+      |                 /---93---+                                                    
+      |                 |        |------------------------------------ EF590148.1 (10)
+      |                 |        |                                                    
+      +                 |        |------------------------------------ EF590163.1 (11)
+      |                 |        |                                                    
+      |                 |        |                 /------------------ EF590146.1 (12)
+      |                 |        |                 |                                  
+      |                 |        |                 |        /--------- EF590161.1 (14)
+      |                 |        |        /---54---+---95---+                         
+      |                 |        |        |        |        \--------- EF590159.1 (15)
+      |                 |        |        |        |                                  
+      |                 |        |        |        \------------------ EF590190.1 (16)
+      |                 |        |        |                                           
+      |                 |        |        |--------------------------- EF590165.1 (13)
+      |                 |        |        |                                           
+      |                 |        |        |                 /--------- EF590178.1 (17)
+      |                 |        |        |                 |                         
+      |        /---95---+        \---98---+--------91-------+--------- EF590143.1 (18)
+      |        |        |                 |                 |                         
+      |        |        |                 |                 \--------- AB015091.2 (19)
+      |        |        |                 |                                           
+      |        |        |                 |--------------------------- EF590172.1 (20)
+      |        |        |                 |                                           
+      |        |        |                 |--------------------------- EF590175.1 (21)
+      |        |        |                 |                                           
+      |        |        |                 \--------------------------- EF590169.1 (22)
+      \---93---+        |                                                             
+               |        |--------------------------------------------- AB015092.1 (23)
+               |        |                                                             
+               |        |--------------------------------------------- AF276932.1 (24)
+               |        |                                                             
+               |        |--------------------------------------------- AF276924.1 (25)
+               |        |                                                             
+               |        \--------------------------------------------- AF276925.1 (26)
+               |                                                                      
+               \------------------------------------------------------ AB015085.1 (27)
+                                                                                      
+
+      Phylogram (based on average branch lengths):
+
+      /-------------------------------------------------------- AB015094.1 (29)
+      |                                                                               
+      |------ AB015087.1 (28)
+      |                                                                               
+      |                           /--- EF590149.1 (1)
+      |                           |                                                   
+      |                           |--- EF590188.1 (2)
+      |                           |                                                   
+      |                           |--- EF590171.1 (3)
+      |                           |                                                   
+      |                           |--- EF590186.1 (4)
+      |                           |                                                   
+      |                           |--- EF590153.1 (5)
+      |                           |                                                   
+      |                           |------- EF590141.1 (6)
+      |                           |                                                   
+      |                           |--- EF590176.1 (7)
+      |                           |                                                   
+      |                           |--- EF590195.1 (8)
+      |                           |                                                   
+      |                           |--- EF590193.1 (9)
+      |                     /-----+                                                   
+      |                     |     |--- EF590148.1 (10)
+      |                     |     |                                                   
+      +                     |     |--- EF590163.1 (11)
+      |                     |     |                                                   
+      |                     |     |               /------------------- EF590146.1 (12)
+      |                     |     |               |                                   
+      |                     |     |               |      /--- EF590161.1 (14)
+      |                     |     |         /-----+------+                            
+      |                     |     |         |     |      \--- EF590159.1 (15)
+      |                     |     |         |     |                                   
+      |                     |     |         |     \--- EF590190.1 (16)
+      |                     |     |         |                                         
+      |                     |     |         |----------- EF590165.1 (13)
+      |                     |     |         |                                         
+      |                     |     |         |      /-- EF590178.1 (17)
+      |                     |     |         |      |                                  
+      |          /----------+     \---------+------+-- EF590143.1 (18)
+      |          |          |               |      |                                  
+      |          |          |               |      \------ AB015091.2 (19)
+      |          |          |               |                                         
+      |          |          |               |--- EF590172.1 (20)
+      |          |          |               |                                         
+      |          |          |               |--- EF590175.1 (21)
+      |          |          |               |                                         
+      |          |          |               \------- EF590169.1 (22)
+      \----------+          |                                                         
+                 |          |-- AB015092.1 (23)
+                 |          |                                                         
+                 |          |------ AF276932.1 (24)
+                 |          |                                                         
+                 |          |-- AF276924.1 (25)
+                 |          |                                                         
+                 |          \------ AF276925.1 (26)
+                 |                                                                    
+                 \----------------------- AB015085.1 (27)
+                                                                                      
+      |--------------| 0.005 expected changes per site
+
+      Calculating tree probabilities...
+
+      Credible sets of trees (69179 trees sampled):
+         50 % credible set contains 31679 trees
+         90 % credible set contains 61679 trees
+         95 % credible set contains 65429 trees
+         99 % credible set contains 68429 trees
